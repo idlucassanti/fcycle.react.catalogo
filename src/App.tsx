@@ -4,18 +4,9 @@ import { Header } from "./components/Header";
 import { Layout } from "./components/Layout";
 
 import { theme } from './configs/theme';
-
-function About() {
-  return (
-    <h1>Tela About</h1>
-  );
-}
-
-function Home() {
-  return (
-    <h1>Tela Home</h1>
-  );
-}
+import { CategoryCreate } from "./features/categories/CategoryCreate";
+import { CategoryEdit } from "./features/categories/CategoryEdit";
+import { CategoryList } from "./features/categories/CategoryList";
 
 function App() {
   return (
@@ -35,8 +26,17 @@ function App() {
           </Typography>
 
           <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/about" element={<About/>}/>
+            <Route path="/" element={<CategoryList />}/>
+            <Route path="/categories" element={<CategoryList />}/>
+            <Route path="/categories/create" element={<CategoryCreate />}/>
+            <Route path="/categories/edit/:id" element={<CategoryEdit />}/>
+
+            <Route path="*" element={<Box>
+                <Typography variant="h1" component="h1">
+                  404 - Página não encontrada
+                </Typography>
+              </Box>}
+            />
           </Routes>
         </Layout>
       </Box>
