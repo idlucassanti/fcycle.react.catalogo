@@ -21,10 +21,6 @@ function App() {
         <Header />
 
         <Layout>
-          <Typography variant="h1" component="h1">
-            Teste olá mundo!
-          </Typography>
-
           <Routes>
             <Route path="/" element={<CategoryList />}/>
             <Route path="/categories" element={<CategoryList />}/>
