@@ -6,7 +6,7 @@ interface Category {
   name: string;
   description: string | null;
   is_active: boolean;
-  creted_at: string;
+  created_at: string;
   updated_at: string;
   deleted_at: string | null;
 }
@@ -17,15 +17,15 @@ const category : Category = {
   description: "Lorem ipsum 1",
   is_active: true,
   deleted_at: null,
-  creted_at: "",
-  updated_at: ""
+  created_at: "1995-12-17T03:24:00",
+  updated_at: "1995-12-17T03:24:00"
 }
 
 export const initialState = [
   category,
-  {...category, id: "2", name: "Lucas Santi 2"},
-  {...category, id: "3", name: "Lucas Santi 3"},
-  {...category, id: "4", name: "Lucas Santi 4"},
+  {...category, id: "2", name: "Lucas Santi 2", is_active: false, create_at: "1995-12-17T03:24:00" },
+  {...category, id: "3", name: "Lucas Santi 3", is_active: false, create_at: "1995-12-17T03:24:00"},
+  {...category, id: "4", name: "Lucas Santi 4", is_active: true, create_at: "1995-12-17T03:24:00"},
 ];
 
 
@@ -42,7 +42,7 @@ const categoriesSlice = createSlice({
 // Selectors
 
 export function selectCategories(state: RootState) {
-  return state.categories;
+  return state.categories
 }
 
 export default categoriesSlice.reducer;
