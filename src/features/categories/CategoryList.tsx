@@ -10,6 +10,13 @@ export function CategoryList() {
 
   const categories = useAppSelector(selectCategories);
 
+  const componentProps = {
+    toolbar: {
+      showQuickFilter: true,
+      quickFilterProps: { debounceMs: 500 },
+    },
+  }
+
   const rows: GridRowsProp = categories.map((category) => ({
     id: category.id,
     name: category.name,
@@ -21,7 +28,8 @@ export function CategoryList() {
     { 
       field: 'name', 
       headerName: 'Name', 
-      flex: 1 
+      flex: 1,
+      renderCell: renderNameCell
     },
     { 
       field: 'active', 
@@ -43,6 +51,19 @@ export function CategoryList() {
       renderCell: renderActionsCell
     }
   ];
+
+  function renderNameCell(row: GridRenderCellParams) {
+    return (
+      <Link
+        style={{textDecoration: "none"}}
+        to={`/categories/edit/${row.id}`}
+      >
+        <Typography color="primary">
+          {row.value}
+        </Typography>
+      </Link>
+    );
+  }
 
   function renderIsActiveCell(row: GridRenderCellParams) {
     return <Typography color={row.value? "primary": "secondary"}>{row.value ? 'Active' : 'Inactive'}</Typography>
@@ -74,23 +95,18 @@ export function CategoryList() {
         </Button>
       </Box>
 
-      <Box component="div" style={{ height: 400, width: '100%' }}>
+      <Box component="div" style={{ height: 600, width: '100%' }}>
         <DataGrid 
-          rowsPerPageOptions={[2, 10, 20, 50, 100]}
-          rows={rows} 
+          // checkboxSelection={true}
           columns={columns}
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={componentProps}
           disableColumnFilter={true}
           disableColumnSelector={true}
           disableDensitySelector={true}
-          // checkboxSelection={true}
           disableSelectionOnClick={true}
-          components={{ Toolbar: GridToolbar }}
-          componentsProps={{
-            toolbar: {
-              showQuickFilter: true,
-              quickFilterProps: { debounceMs: 500 },
-            },
-          }}
+          rows={rows} 
+          rowsPerPageOptions={[2, 10, 20, 50, 100]}
         />
       </Box>
     </Box>
